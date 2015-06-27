@@ -21,7 +21,8 @@ LinkList *initLinkList();
 void destroyLinkList(LinkList *list);
 void destroyListNode(ListNode *firstNode);
 void addToTail(LinkList *list, int dataToAdd);
-void removeTail(LinkList *list);
+int removeTail(LinkList *list);
 void addToHead(LinkList *list, int valueToAdd);
+int removeHead(LinkList *list);
 
 #endif // LinkList_H

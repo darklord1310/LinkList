@@ -113,10 +113,11 @@ void test_removeTail_given_sample_list_above_should_get_head_is_1_tail_is_3()
   addToTail(list,4);
   
   //remove
-  removeTail(list);
+  int value = removeTail(list);
   
   TEST_ASSERT_EQUAL(list->head->data, 1);
   TEST_ASSERT_EQUAL(list->tail->data, 3);
+  TEST_ASSERT_EQUAL(4, value);
   
   destroyListNode(list->head);
   destroyLinkList(list);
@@ -139,13 +140,15 @@ void test_removeTail_given_sample_list_above_remove_2_times_should_get_head_is_1
   addToTail(list,4);
   
   //remove
-  removeTail(list);
+  int value = removeTail(list);
   TEST_ASSERT_EQUAL(list->head->data, 1);
   TEST_ASSERT_EQUAL(list->tail->data, 3);
+  TEST_ASSERT_EQUAL(value, 4);
   
-  removeTail(list);
+  value = removeTail(list);
   TEST_ASSERT_EQUAL(list->head->data, 1);
   TEST_ASSERT_EQUAL(list->tail->data, 2);
+  TEST_ASSERT_EQUAL(value, 3);
   
   destroyListNode(list->head);
   destroyLinkList(list);
@@ -167,17 +170,20 @@ void test_removeTail_given_sample_list_above_remove_3_times_should_get_head_is_1
   addToTail(list,4);
   
   //remove
-  removeTail(list);
+  int value = removeTail(list);
   TEST_ASSERT_EQUAL(list->head->data, 1);
   TEST_ASSERT_EQUAL(list->tail->data, 3);
+  TEST_ASSERT_EQUAL(value, 4);
   
-  removeTail(list);
+  value = removeTail(list);
   TEST_ASSERT_EQUAL(list->head->data, 1);
   TEST_ASSERT_EQUAL(list->tail->data, 2);
+  TEST_ASSERT_EQUAL(value, 3);
   
-  removeTail(list);
+  value = removeTail(list);
   TEST_ASSERT_EQUAL(list->head->data, 1);
   TEST_ASSERT_EQUAL(list->tail->data, 1);
+  TEST_ASSERT_EQUAL(value, 2);
   
   destroyListNode(list->head);
   destroyLinkList(list);
@@ -197,10 +203,11 @@ void test_removeTail_given_sample_list_above_should_get_head_is_NULL_tail_is_NUL
   addToTail(list,1);
   
   //remove
-  removeTail(list);
+  int value = removeTail(list);
   
   TEST_ASSERT_NULL(list->head);
   TEST_ASSERT_NULL(list->tail);
+  TEST_ASSERT_EQUAL(value, 1);
   
   destroyListNode(list->head);
   destroyLinkList(list);
@@ -255,4 +262,42 @@ void test_addToHead_given_empty_list_and_add_1_should_get_head_is_1_tail_is_1()
 }
 
 
+/* List : 0 1 2 <-- tail
+          ^
+          |
+        head
+*/
+void test_removeHead_given_sample_list_above_should_get_head_is_1_tail_is_2()
+{
+  //set up test condition
+  LinkList *list = initLinkList();
+  addToTail(list,0);
+  addToTail(list,1);
+  addToTail(list,2);
+  
+  int value = removeHead(list);
+  
+  TEST_ASSERT_EQUAL(0,value);
+  TEST_ASSERT_EQUAL(list->head->data, 1);
+  TEST_ASSERT_EQUAL(list->tail->data, 2);
+}
 
+
+//boundary test
+/* List : 0 <-- tail
+          ^
+          |
+        head
+*/
+void test_removeHead_given_sample_list_above_should_get_head_is_NULL_tail_is_NULL()
+{
+  //set up test condition
+  LinkList *list = initLinkList();
+  addToTail(list,0);
+  
+  int value = removeHead(list);
+  
+  TEST_ASSERT_EQUAL(0,value);
+  TEST_ASSERT_NULL(list->head);
+  TEST_ASSERT_NULL(list->tail);
+}

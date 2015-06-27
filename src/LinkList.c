@@ -50,7 +50,7 @@ void addToTail(LinkList *list, int dataToAdd)
 {
   ListNode *newNode;
   newNode = malloc(sizeof(ListNode)); 
-
+  
   if(newNode != NULL)
   {
     newNode->data = dataToAdd;
@@ -68,8 +68,9 @@ void addToTail(LinkList *list, int dataToAdd)
 /*
   Input: firstNode    is the head of the list
 */
-void removeTail(LinkList *list)
+int removeTail(LinkList *list)
 {
+  int removedData;
   ListNode *del, *previousDel;                //previousDel will point to the node before the node being to delete
                                               //del         will point to the node that is to be delete
   
@@ -86,25 +87,29 @@ void removeTail(LinkList *list)
     
     if(previousDel == NULL)
     {
+      removedData = list->head->data;
       list->head = NULL;
       list->tail = NULL;
       free(list->head);
     }
     else
     {
+      removedData = del->data;
       previousDel->next = NULL;
       list->tail = previousDel;
       free(del);
     }
   }
+  
+  return removedData;
 }
 
 void addToHead(LinkList *list, int valueToAdd)
 {
   ListNode *newNode;
   newNode = malloc(sizeof(ListNode)); 
-  
   newNode->data = valueToAdd;
+  newNode->next = NULL;
   
   if(list->head == NULL)
   {
@@ -116,7 +121,20 @@ void addToHead(LinkList *list, int valueToAdd)
     newNode->next = list->head;
     list->head = newNode;
   }
-  
 }
 
 
+int removeHead(LinkList *list)
+{
+  int removedData;
+  
+  if(list->head != NULL)
+  {
+    removedData = list->head->data;
+    list->head = list->head->next;
+    if(list->head == NULL)
+      list->tail = NULL;
+  }
+  
+  return removedData;
+}
