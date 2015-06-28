@@ -10,7 +10,7 @@ LinkList *initLinkList()
   newlist = malloc(sizeof(LinkList));
   newlist->head = NULL;
   newlist->tail = NULL;
-  
+  newlist->ListSize = 0;
   return newlist;
 }
 
@@ -62,6 +62,7 @@ void addToTail(LinkList *list, int dataToAdd)
       list->tail->next = newNode;
   
     list->tail = newNode;
+    list->ListSize++;
   }
 }
 
@@ -74,7 +75,7 @@ int removeTail(LinkList *list)
   ListNode *del, *previousDel;                //previousDel will point to the node before the node being to delete
                                               //del         will point to the node that is to be delete
   
-  if(list->head != NULL)                      //check if head is not empty
+  if(!isListEmpty(list))                      //check if list is not empty
   {
     del = list->head;                         //always assume the del to be the head
     previousDel = NULL;
@@ -99,10 +100,12 @@ int removeTail(LinkList *list)
       list->tail = previousDel;
       free(del);
     }
+    list->ListSize--;
   }
   
   return removedData;
 }
+
 
 void addToHead(LinkList *list, int valueToAdd)
 {
@@ -111,7 +114,7 @@ void addToHead(LinkList *list, int valueToAdd)
   newNode->data = valueToAdd;
   newNode->next = NULL;
   
-  if(list->head == NULL)
+  if(isListEmpty(list))
   {
     list->head = newNode;
     list->tail = newNode;
@@ -121,6 +124,8 @@ void addToHead(LinkList *list, int valueToAdd)
     newNode->next = list->head;
     list->head = newNode;
   }
+  
+  list->ListSize++;
 }
 
 
@@ -128,13 +133,39 @@ int removeHead(LinkList *list)
 {
   int removedData;
   
-  if(list->head != NULL)
+  if(!isListEmpty(list))
   {
     removedData = list->head->data;
     list->head = list->head->next;
     if(list->head == NULL)
       list->tail = NULL;
+    list->ListSize--;
   }
   
   return removedData;
+}
+
+
+void displayList(LinkList *list)
+{
+  ListNode *ptr;
+  
+  if(isListEmpty(list))
+  {
+    printf("No nodes in the list to display\n");
+  }
+  else
+  {
+    printf("LinkList: ");
+    for (ptr = list->head; ptr != NULL; ptr = ptr->next)
+    {    
+      printf("%d", ptr->data);
+      printf("  ");
+    }
+    printf("\n");
+    printf("ListSize: %d\n", list->ListSize);
+    printf("Head: %d\n", list->head->data);
+    printf("Tail: %d\n", list->tail->data);
+    
+  }
 }

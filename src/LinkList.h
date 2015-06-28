@@ -13,7 +13,7 @@ struct ListNode
 struct LinkList
 {
   ListNode *head, *tail;
-  
+  int ListSize;
 };
 
 
@@ -24,5 +24,6 @@ void addToTail(LinkList *list, int dataToAdd);
 int removeTail(LinkList *list);
 void addToHead(LinkList *list, int valueToAdd);
 int removeHead(LinkList *list);
+void displayList(LinkList *list);
 
 #endif // LinkList_H
