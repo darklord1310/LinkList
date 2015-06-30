@@ -45,12 +45,13 @@ void test_isListEmpty_given_empty_list_should_return_1()
 void test_addToTail_empty_list_and_add_1_should_get_head_is_1_tail_is_1()
 {
   LinkList *list = initLinkList();
-  addToTail(list,1);
-  
+  int value1 = 1;
+  addToTail(list, (void *)value1);
+
   TEST_ASSERT_NOT_NULL(list->head);
   TEST_ASSERT_NOT_NULL(list->tail);
-  TEST_ASSERT_EQUAL(list->head->data, 1);
-  TEST_ASSERT_EQUAL(list->tail->data, 1);
+  TEST_ASSERT_EQUAL( list->head->data , value1);
+  TEST_ASSERT_EQUAL( list->tail->data , value1);
   TEST_ASSERT_EQUAL(1,list->ListSize);
   destroyListNode(list->head);
   destroyLinkList(list);
@@ -66,34 +67,37 @@ void test_addToTail_empty_list_and_add_1_should_get_head_is_1_tail_is_1()
 void test_addToTail_given_head_is_1_and_add_2_should_get_head_is_1_tail_is_2()
 {
   LinkList *list = initLinkList();
-  addToTail(list,1);
-  addToTail(list,2);
+  int value1 = 1;
+  int value2 = 2;
+  addToTail(list,(void *)value1);
+  addToTail(list,(void *)value2);
   
-  TEST_ASSERT_EQUAL(list->head->data, 1);
-  TEST_ASSERT_EQUAL(list->tail->data, 2);
+  TEST_ASSERT_EQUAL( list->head->data , value1);
+  TEST_ASSERT_EQUAL( list->tail->data , value2);
   TEST_ASSERT_EQUAL(2,list->ListSize);
   destroyListNode(list->head);
   destroyLinkList(list);
 }
 
 
-/* Before add 3 :  head --> 1 
-                   tail --> 2
+
+/* Before add c :  head --> a
+                   tail --> b
    
-   After add 3  :  head --> 1
-                   tail --> 3
+   After add c  :  head --> a
+                   tail --> c
 
 */
 void test_addToTail_given_tail_is_2_and_add_3_should_get_head_is_1_tail_is_3()
 {
   LinkList *list = initLinkList();
-  addToTail(list,1);
-  addToTail(list,2);
-  addToTail(list,3);
+  addToTail(list,(void *)'a');
+  addToTail(list,(void *)'b');
+  addToTail(list,(void *)'c');
   
-  TEST_ASSERT_EQUAL(list->head->data, 1);
-  TEST_ASSERT_EQUAL(list->head->next->data, 2);
-  TEST_ASSERT_EQUAL(list->tail->data, 3);
+  TEST_ASSERT_EQUAL(list->head->data, (void *)'a');
+  TEST_ASSERT_EQUAL(list->head->next->data,(void *) 'b');
+  TEST_ASSERT_EQUAL(list->tail->data, (void *)'c');
   TEST_ASSERT_EQUAL(3,list->ListSize);
   destroyListNode(list->head);
   destroyLinkList(list);
@@ -109,18 +113,17 @@ void test_removeTail_given_sample_list_above_should_get_head_is_1_tail_is_3()
   LinkList *list = initLinkList();
   
   //add
-  addToTail(list,1);
-  addToTail(list,2);
-  addToTail(list,3);
-  addToTail(list,4);
+  addToTail(list,(void *)1);
+  addToTail(list,(void *)2);
+  addToTail(list,(void *)3);
+  addToTail(list,(void *)4);
   TEST_ASSERT_EQUAL(4,list->ListSize);
   
   //remove
-  int value = removeTail(list);
+  removeTail(list);
   TEST_ASSERT_EQUAL(3,list->ListSize);
-  TEST_ASSERT_EQUAL(list->head->data, 1);
-  TEST_ASSERT_EQUAL(list->tail->data, 3);
-  TEST_ASSERT_EQUAL(4, value);
+  TEST_ASSERT_EQUAL(list->head->data, (void *)1);
+  TEST_ASSERT_EQUAL(list->tail->data, (void *)3);
   
   destroyListNode(list->head);
   destroyLinkList(list);
@@ -137,24 +140,22 @@ void test_removeTail_given_sample_list_above_remove_2_times_should_get_head_is_1
   LinkList *list = initLinkList();
   
   //add
-  addToTail(list,1);
-  addToTail(list,2);
-  addToTail(list,3);
-  addToTail(list,4);
+  addToTail(list,(void *)1);
+  addToTail(list,(void *)2);
+  addToTail(list,(void *)3);
+  addToTail(list,(void *)4);
   TEST_ASSERT_EQUAL(4,list->ListSize);
   
   //remove
-  int value = removeTail(list);
+  removeTail(list);
   TEST_ASSERT_EQUAL(3,list->ListSize);
-  TEST_ASSERT_EQUAL(list->head->data, 1);
-  TEST_ASSERT_EQUAL(list->tail->data, 3);
-  TEST_ASSERT_EQUAL(value, 4);
+  TEST_ASSERT_EQUAL(list->head->data, (void *)1);
+  TEST_ASSERT_EQUAL(list->tail->data, (void *)3);
   
-  value = removeTail(list);
+  removeTail(list);
   TEST_ASSERT_EQUAL(2,list->ListSize);
-  TEST_ASSERT_EQUAL(list->head->data, 1);
-  TEST_ASSERT_EQUAL(list->tail->data, 2);
-  TEST_ASSERT_EQUAL(value, 3);
+  TEST_ASSERT_EQUAL(list->head->data, (void *)1);
+  TEST_ASSERT_EQUAL(list->tail->data, (void *)2);
   
   destroyListNode(list->head);
   destroyLinkList(list);
@@ -170,30 +171,27 @@ void test_removeTail_given_sample_list_above_remove_3_times_should_get_head_is_1
   LinkList *list = initLinkList();
   
   //add
-  addToTail(list,1);
-  addToTail(list,2);
-  addToTail(list,3);
-  addToTail(list,4);
+  addToTail(list,(void *)1);
+  addToTail(list,(void *)2);
+  addToTail(list,(void *)3);
+  addToTail(list,(void *)4);
   TEST_ASSERT_EQUAL(4,list->ListSize);
   
   //remove
-  int value = removeTail(list);
+  removeTail(list);
   TEST_ASSERT_EQUAL(3,list->ListSize);
-  TEST_ASSERT_EQUAL(list->head->data, 1);
-  TEST_ASSERT_EQUAL(list->tail->data, 3);
-  TEST_ASSERT_EQUAL(value, 4);
+  TEST_ASSERT_EQUAL(list->head->data, (void *)1);
+  TEST_ASSERT_EQUAL(list->tail->data, (void *)3);
   
-  value = removeTail(list);
+  removeTail(list);
   TEST_ASSERT_EQUAL(2,list->ListSize);
-  TEST_ASSERT_EQUAL(list->head->data, 1);
-  TEST_ASSERT_EQUAL(list->tail->data, 2);
-  TEST_ASSERT_EQUAL(value, 3);
+  TEST_ASSERT_EQUAL(list->head->data, (void *)1);
+  TEST_ASSERT_EQUAL(list->tail->data, (void *)2);
   
-  value = removeTail(list);
+  removeTail(list);
   TEST_ASSERT_EQUAL(1,list->ListSize);
-  TEST_ASSERT_EQUAL(list->head->data, 1);
-  TEST_ASSERT_EQUAL(list->tail->data, 1);
-  TEST_ASSERT_EQUAL(value, 2);
+  TEST_ASSERT_EQUAL(list->head->data, (void *)1);
+  TEST_ASSERT_EQUAL(list->tail->data, (void *)1);
   
   destroyListNode(list->head);
   destroyLinkList(list);
@@ -210,15 +208,14 @@ void test_removeTail_given_sample_list_above_should_get_head_is_NULL_tail_is_NUL
   LinkList *list = initLinkList();
   
   //add
-  addToTail(list,1);
+  addToTail(list,(void *)1);
   TEST_ASSERT_EQUAL(1,list->ListSize);
   
   //remove
-  int value = removeTail(list);
+  removeTail(list);
   TEST_ASSERT_EQUAL(0,list->ListSize);
   TEST_ASSERT_NULL(list->head);
   TEST_ASSERT_NULL(list->tail);
-  TEST_ASSERT_EQUAL(value, 1);
   
   destroyListNode(list->head);
   destroyLinkList(list);
@@ -247,17 +244,17 @@ void test_addToHead_given_sample_list_above_and_add_1_should_get_head_is_1()
 {
   //set up test condition
   LinkList *list = initLinkList();
-  addToTail(list,2);
-  addToTail(list,3);
+  addToTail(list,(void *)2);
+  addToTail(list,(void *)3);
   TEST_ASSERT_EQUAL(2,list->ListSize);
   
   //test add to tail
-  addToHead(list, 1);
+  addToHead(list, (void *)1);
   TEST_ASSERT_EQUAL(3,list->ListSize);
-  TEST_ASSERT_EQUAL(list->head->data, 1);
-  TEST_ASSERT_EQUAL(list->head->next->data, 2);
-  TEST_ASSERT_EQUAL(list->head->next->next->data, 3);
-  TEST_ASSERT_EQUAL(list->tail->data, 3);
+  TEST_ASSERT_EQUAL(list->head->data, (void *)1);
+  TEST_ASSERT_EQUAL(list->head->next->data, (void *)2);
+  TEST_ASSERT_EQUAL(list->head->next->next->data, (void *)3);
+  TEST_ASSERT_EQUAL(list->tail->data, (void *)3);
 }
 
 
@@ -268,10 +265,10 @@ void test_addToHead_given_empty_list_and_add_1_should_get_head_is_1_tail_is_1()
   LinkList *list = initLinkList();
   
   //test add to tail
-  addToHead(list, 1);
+  addToHead(list, (void *)1);
   TEST_ASSERT_EQUAL(1,list->ListSize);
-  TEST_ASSERT_EQUAL(list->head->data, 1);
-  TEST_ASSERT_EQUAL(list->tail->data, 1);
+  TEST_ASSERT_EQUAL(list->head->data, (void *)1);
+  TEST_ASSERT_EQUAL(list->tail->data, (void *)1);
 }
 
 
@@ -284,16 +281,15 @@ void test_removeHead_given_sample_list_above_should_get_head_is_1_tail_is_2()
 {
   //set up test condition
   LinkList *list = initLinkList();
-  addToTail(list,0);
-  addToTail(list,1);
-  addToTail(list,2);
+  addToTail(list,(void *)0);
+  addToTail(list,(void *)1);
+  addToTail(list,(void *)2);
   TEST_ASSERT_EQUAL(3,list->ListSize);
   
-  int value = removeHead(list);
+  removeHead(list);
   TEST_ASSERT_EQUAL(2,list->ListSize);
-  TEST_ASSERT_EQUAL(0,value);
-  TEST_ASSERT_EQUAL(list->head->data, 1);
-  TEST_ASSERT_EQUAL(list->tail->data, 2);
+  TEST_ASSERT_EQUAL(list->head->data, (void *)1);
+  TEST_ASSERT_EQUAL(list->tail->data, (void *)2);
 }
 
 
@@ -307,12 +303,12 @@ void test_removeHead_given_sample_list_above_should_get_head_is_NULL_tail_is_NUL
 {
   //set up test condition
   LinkList *list = initLinkList();
-  addToTail(list,0);
+  addToTail(list,(void *)0);
   TEST_ASSERT_EQUAL(1,list->ListSize);
   
-  int value = removeHead(list);
+  removeHead(list);
   TEST_ASSERT_EQUAL(0,list->ListSize);
-  TEST_ASSERT_EQUAL(0,value);
   TEST_ASSERT_NULL(list->head);
   TEST_ASSERT_NULL(list->tail);
 }
+

@@ -6,7 +6,7 @@ typedef struct LinkList LinkList;
 
 struct ListNode
 {
-    int data;
+    void *data;
     ListNode *next;
 };
 
@@ -20,10 +20,10 @@ struct LinkList
 LinkList *initLinkList();
 void destroyLinkList(LinkList *list);
 void destroyListNode(ListNode *firstNode);
-void addToTail(LinkList *list, int dataToAdd);
-int removeTail(LinkList *list);
-void addToHead(LinkList *list, int valueToAdd);
-int removeHead(LinkList *list);
+void addToTail(LinkList *list, void *dataToAdd);
+void removeTail(LinkList *list);
+void addToHead(LinkList *list, void *valueToAdd);
+void removeHead(LinkList *list);
 void displayList(LinkList *list);
 
 #endif // LinkList_H

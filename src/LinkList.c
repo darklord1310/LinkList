@@ -46,7 +46,7 @@ int isListEmpty(LinkList *list)
 }
 
 
-void addToTail(LinkList *list, int dataToAdd)
+void addToTail(LinkList *list, void *dataToAdd)
 {
   ListNode *newNode;
   newNode = malloc(sizeof(ListNode)); 
@@ -69,9 +69,8 @@ void addToTail(LinkList *list, int dataToAdd)
 /*
   Input: firstNode    is the head of the list
 */
-int removeTail(LinkList *list)
+void removeTail(LinkList *list)
 {
-  int removedData;
   ListNode *del, *previousDel;                //previousDel will point to the node before the node being to delete
                                               //del         will point to the node that is to be delete
   
@@ -88,26 +87,22 @@ int removeTail(LinkList *list)
     
     if(previousDel == NULL)
     {
-      removedData = list->head->data;
       list->head = NULL;
       list->tail = NULL;
       free(list->head);
     }
     else
     {
-      removedData = del->data;
       previousDel->next = NULL;
       list->tail = previousDel;
       free(del);
     }
     list->ListSize--;
   }
-  
-  return removedData;
 }
 
 
-void addToHead(LinkList *list, int valueToAdd)
+void addToHead(LinkList *list, void *valueToAdd)
 {
   ListNode *newNode;
   newNode = malloc(sizeof(ListNode)); 
@@ -129,43 +124,17 @@ void addToHead(LinkList *list, int valueToAdd)
 }
 
 
-int removeHead(LinkList *list)
+void removeHead(LinkList *list)
 {
-  int removedData;
-  
   if(!isListEmpty(list))
   {
-    removedData = list->head->data;
     list->head = list->head->next;
     if(list->head == NULL)
       list->tail = NULL;
     list->ListSize--;
   }
-  
-  return removedData;
+
 }
 
 
-void displayList(LinkList *list)
-{
-  ListNode *ptr;
-  
-  if(isListEmpty(list))
-  {
-    printf("No nodes in the list to display\n");
-  }
-  else
-  {
-    printf("LinkList: ");
-    for (ptr = list->head; ptr != NULL; ptr = ptr->next)
-    {    
-      printf("%d", ptr->data);
-      printf("  ");
-    }
-    printf("\n");
-    printf("ListSize: %d\n", list->ListSize);
-    printf("Head: %d\n", list->head->data);
-    printf("Tail: %d\n", list->tail->data);
-    
-  }
-}
+

@@ -3,9 +3,36 @@
 #include <stdio.h>
 #include <windows.h>
 
+void displayList(LinkList *list)
+{
+  ListNode *ptr;
+  
+  if(isListEmpty(list))
+  {
+    printf("No nodes in the list to display\n");
+  }
+  else
+  {
+    printf("LinkList: ");
+    for (ptr = list->head; ptr != NULL; ptr = ptr->next)
+    {    
+      printf("%d", ptr->data);
+      printf("  ");
+    }
+    printf("\n");
+    printf("ListSize: %d\n", list->ListSize);
+    printf("Head: %d\n", list->head->data);
+    printf("Tail: %d\n", list->tail->data);
+    
+  }
+}
+
+
 void main()
 {
   int ch,value;
+  char value;
+  double value;
   char ans = 'y';
   LinkList *list = initLinkList();
   
@@ -31,23 +58,21 @@ void main()
             printf("\n...Inserting node at first...\n");
             printf("Enter the value: ");
             scanf("%i", &value);
-            addToHead(list,value);
+            addToHead(list,(void *)&value);
             break;
         case 2: 
             printf("\n...Inserting node at last...\n");
             printf("Enter the value: ");
             scanf("%i", &value);
-            addToTail(list,value);
+            addToTail(list,(void *)&value);
             break;
         case 3: 
             printf("\n...Delete Node from first...\n");
-            value = removeHead(list);
-            printf("Value removed: %d\n", value);
+            removeHead(list);
             break;
         case 4: 
             printf("\n...Delete Node from last...\n");
-            value = removeTail(list);
-            printf("Value removed: %d\n", value);
+            removeTail(list);
             break;
         case 5: 
             printf("\n...Exiting...\n");
