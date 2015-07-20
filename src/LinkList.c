@@ -69,10 +69,12 @@ void addToTail(LinkList *list, void *dataToAdd)
 /*
   Input: firstNode    is the head of the list
 */
-void removeTail(LinkList *list)
+void *removeTail(LinkList *list)
 {
   ListNode *del, *previousDel;                //previousDel will point to the node before the node being to delete
                                               //del         will point to the node that is to be delete
+                                              
+  void *removedValue;
   
   if(!isListEmpty(list))                      //check if list is not empty
   {
@@ -87,18 +89,22 @@ void removeTail(LinkList *list)
     
     if(previousDel == NULL)
     {
+      removedValue = del->data;
       list->head = NULL;
       list->tail = NULL;
       free(list->head);
     }
     else
     {
+      removedValue = del->data;
       previousDel->next = NULL;
       list->tail = previousDel;
       free(del);
     }
     list->ListSize--;
   }
+  
+  return removedValue;
 }
 
 
@@ -124,16 +130,20 @@ void addToHead(LinkList *list, void *valueToAdd)
 }
 
 
-void removeHead(LinkList *list)
+void *removeHead(LinkList *list)
 {
+  void *removedValue;
+  
   if(!isListEmpty(list))
   {
+    removedValue = list->head->data;
     list->head = list->head->next;
     if(list->head == NULL)
       list->tail = NULL;
     list->ListSize--;
   }
-
+  
+  return removedValue;
 }
 
 
